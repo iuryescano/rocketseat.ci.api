@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs: 
   build: 
@@ -13,10 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - names: Setup node
+    - name: Setup node
       uses: actions/setup-node@v4
       with: 
         node-version: 20
-        cache: "npm"
-      -run: npm i
-      -run: npm run test
+        cache: "yarn"
+
+    - run: yarn
+    - run: yarn run test
