@@ -12,3 +12,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - names: Setup node
+      uses: actions/setup-node@v4
+      with: 
+        node-version: 20
+        cache: "npm"
+      -run: npm i
+      -run: npm run test
