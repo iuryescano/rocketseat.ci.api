@@ -36,6 +36,6 @@ jobs:
 
       - name: Build docker image
         run: docker build -t iurycordeiro/rocketseat-ci-api:${{ steps.generate_tag.outputs.sha }} .
-\
+
       - name: Push image
-        run: docker push iurycordeiro/rocketseat-ci-api:${{ steps.generate_tag.outputs.sha }} 
+        run: docker push iurycordeiro/rocketseat-ci-api:${{ steps.generate_tag.outputs.sha }}
