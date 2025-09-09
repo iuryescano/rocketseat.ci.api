@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }} 
 
       - name: Build and Push
-        uses: docker/build-push-actions@v5
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: iurycordeiro/rocketseat-ci-api:${{ steps.generate_tag.outputs.sha }},iurycordeiro/rocketseat-ci-api:latest
