@@ -48,6 +48,6 @@ jobs:
           TAG: ${{ steps.generate_tag.outputs.sha }}
         run: |
           docker build -t $REGISTRY/rocketseat-ci:$TAG .
-          docker push $REGISTRY/rocketseat-ci:$tTAG
+          docker push $REGISTRY/rocketseat-ci:$TAG
       # - name: Push image
       #   run: docker push iurycordeiro/rocketseat-ci-api:${{ steps.generate_tag.outputs.sha }}
