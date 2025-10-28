@@ -2,12 +2,12 @@ FROM node:18 AS build
 
 WORKDIR /usr/src/app
 
-COPY package*.json package-lock.json ./
+COPY package.json yarn.lock ./
 COPY . .
 
-RUN npm install
-RUN npm run build
-RUN npm prune --production
+RUN yarn install --frozen-lockfile
+RUN yarn build
+RUN yarn install --production --frozen-lockfile
 
 FROM node:18-alpine3.19
 
@@ -19,5 +19,5 @@ COPY --from=build /usr/src/app/node_modules ./node_modules
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+CMD ["yarn", "start:prod"]
 
