@@ -1,4 +1,4 @@
-FROM node:18 AS build
+FROM node:20 AS build
 
 WORKDIR /usr/src/app
 
@@ -9,7 +9,7 @@ RUN yarn install --frozen-lockfile
 RUN yarn build
 RUN yarn install --production --frozen-lockfile
 
-FROM node:18-alpine3.19
+FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
