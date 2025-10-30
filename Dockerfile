@@ -1,23 +1,28 @@
-FROM node:24 AS build
+FROM node:24-alpine AS build
 
 WORKDIR /usr/src/app
 
+# Copiar apenas package.json e yarn.lock primeiro para cache
 COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production=false
+
+# Copiar código fonte
 COPY . .
-
-RUN yarn install --frozen-lockfile
 RUN yarn build
-RUN yarn install --production --frozen-lockfile
 
+# Stage de produção
 FROM node:24-alpine
 
 WORKDIR /usr/src/app
 
-COPY --from=build /usr/src/app/package.json ./package.json
+# Instalar apenas dependências de produção
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production=true && yarn cache clean
+
+# Copiar arquivos built
 COPY --from=build /usr/src/app/dist ./dist
-COPY --from=build /usr/src/app/node_modules ./node_modules
 
 EXPOSE 3000
 
-CMD ["yarn", "start:prod"]
+CMD ["node", "dist/main.js"]
 
